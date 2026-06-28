@@ -1,0 +1,92 @@
+# =====================
+# Python cache
+# =====================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# =====================
+# Virtual environment
+# =====================
+.venv/
+venv/
+env/
+ENV/
+
+# =====================
+# Jupyter Notebook
+# =====================
+.ipynb_checkpoints/
+
+# =====================
+# Testing / coverage
+# =====================
+.pytest_cache/
+.coverage
+htmlcov/
+
+# =====================
+# Build / distribution
+# =====================
+dist/
+build/
+*.egg-info/
+
+# =====================
+# IDE / editor
+# =====================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =====================
+# OS files
+# =====================
+.DS_Store
+Thumbs.db
+
+# =====================
+# Logs
+# =====================
+*.log
+
+# =====================
+# Environment variables
+# =====================
+.env
+.env.*
+
+# =====================
+# mypy / type checking
+# =====================
+.mypy_cache/
+.dmypy.json
+
+# =====================
+# notebooks output
+# =====================
+notebooks/.ipynb_checkpoints/
+
+# =====================
+# local experiment data
+# =====================
+data/
+output/
+results/
+
+# =====================
+# temporary scripts
+# =====================
+temp/
+tmp/
+
+# =====================
+# R / RStudio
+# =====================
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+*.Rproj

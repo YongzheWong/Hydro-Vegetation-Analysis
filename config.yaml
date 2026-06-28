@@ -1,0 +1,74 @@
+# ========================
+# Project Configuration
+# ========================
+
+project:
+  name: Hydro-Vegetation Analysis
+  author: Yongzhe Wang
+  start_year: 2000
+  end_year: 2025
+
+# ------------------------
+# Data paths
+# ------------------------
+
+paths:
+  raw_data: "./data/raw"
+  processed_data: "./data/processed"
+  output: "./outputs"
+  figures: "./figures"
+  boundary: "./data/boundary/china.shp"
+
+# ------------------------
+# Variables
+# ------------------------
+
+variables:
+  - LAI
+  - ET
+  - SM
+  - Runoff
+
+# ------------------------
+# Preprocessing
+# ------------------------
+
+preprocess:
+  nodata: -9999
+  target_resolution: 1000        # meters
+  resampling: bilinear
+  clip_to_boundary: true
+  remove_outliers: true
+
+# ------------------------
+# Projection
+# ------------------------
+
+projection:
+  crs: EPSG:102012
+
+# ------------------------
+# Trend analysis
+# ------------------------
+
+trend:
+  method: theil_sen
+  significance_level: 0.05
+  mk_test: true
+  sliding_window: 10
+
+# ------------------------
+# Spatial statistics
+# ------------------------
+
+spatial:
+  moran_permutations: 999
+  queen_contiguity: true
+
+# ------------------------
+# Parallel computing
+# ------------------------
+
+parallel:
+  enabled: true
+  workers: 8

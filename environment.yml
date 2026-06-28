@@ -1,0 +1,37 @@
+name: data-analysis
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.11
+
+  - numpy
+  - pandas
+  - scipy
+  - matplotlib
+
+  - xarray
+  - netcdf4
+  - h5py
+
+  - rasterio
+  - rioxarray
+  - geopandas
+  - shapely
+  - pyproj
+  - fiona
+  - cartopy
+
+  - scikit-learn
+
+  - libpysal
+  - esda
+
+  - dask
+  - joblib
+  - tqdm
+
+  - pip
+
+  - pip:
+      - pymannkendall
