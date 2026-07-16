@@ -4,7 +4,7 @@
 
 project:
   name: Hydro-Vegetation Analysis
-  author: Yongzhe Wang
+  author: Yongzhe Wong
   start_year: 2000
   end_year: 2025
 
@@ -15,19 +15,9 @@ project:
 paths:
   raw_data: "./data/raw"
   processed_data: "./data/processed"
-  output: "./outputs"
+  output: "./output"
   figures: "./figures"
   boundary: "./data/boundary/china.shp"
-
-# ------------------------
-# Variables
-# ------------------------
-
-variables:
-  - LAI
-  - ET
-  - SM
-  - Runoff
 
 # ------------------------
 # Preprocessing
@@ -72,3 +62,47 @@ spatial:
 parallel:
   enabled: true
   workers: 8
+
+# ------------------------
+# ERA5-Land
+# ------------------------
+
+era5land:
+  dataset: "reanalysis-era5-land"
+  output_dir: "./data/raw/ERA5Land"
+  area:
+    north: 54
+    west: 73
+    south: 18
+    east: 135
+  variables:
+    - 2m_temperature
+    - total_evaporation
+    - surface_runoff
+    - volumetric_soil_water_layer_1
+    - total_precipitation
+  hours:
+    - "00:00"
+    - "01:00"
+    - "02:00"
+    - "03:00"
+    - "04:00"
+    - "05:00"
+    - "06:00"
+    - "07:00"
+    - "08:00"
+    - "09:00"
+    - "10:00"
+    - "11:00"
+    - "12:00"
+    - "13:00"
+    - "14:00"
+    - "15:00"
+    - "16:00"
+    - "17:00"
+    - "18:00"
+    - "19:00"
+    - "20:00"
+    - "21:00"
+    - "22:00"
+    - "23:00"

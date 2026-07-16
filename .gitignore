@@ -41,6 +41,9 @@ build/
 *.swp
 *.swo
 
+# GitHub agent files
+.github/agents/
+
 # =====================
 # OS files
 # =====================

@@ -30,6 +30,11 @@ dependencies:
   - dask
   - joblib
   - tqdm
+  - zarr
+  - requests
+  - pyyaml
+
+  - cdsapi
 
   - pip
 
