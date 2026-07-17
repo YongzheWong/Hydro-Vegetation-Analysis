@@ -39,7 +39,9 @@ Hydro-Vegetation-Analysis/
 │   ├── trend_analysis.py     # 趋势分析
 │   └── spatial_analysis.py   # 空间统计分析
 │
-└── .gitignore                # 避免提交到git
+├── .gitignore                # 避免提交到git
+│
+└── utils.py                  # 工具函数
 ```
 
 ---

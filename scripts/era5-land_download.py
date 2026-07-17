@@ -5,16 +5,13 @@ Author: Yongzhe Wong
 Project: Hydro-Vegetation Analysis
 """
 
+import sys
 from pathlib import Path
 
 import cdsapi
-import yaml
 
-
-def load_config(config_path: str = "config.yaml") -> dict:
-    """Load configuration file."""
-    with open(config_path, "r", encoding="utf-8") as f:
-        return yaml.safe_load(f)
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+from utils import load_config
 
 
 def main():
