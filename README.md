@@ -69,13 +69,15 @@ conda activate data-analysis
 ### 1. 注册 Copernicus CDS 账号
 
 访问：
+
 https://cds.climate.copernicus.eu/
+
 注册账号并登录。
 
 登录后进入：
 
 ```
-My profile → API key
+Your profile → API key
 ```
 
 获取个人 API 信息。
