@@ -5,11 +5,11 @@ Author: Yongzhe Wong
 Project: Hydro-Vegetation Analysis
 """
 
-import sys
 from pathlib import Path
 
 import cdsapi
 
+import sys
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 from utils import load_config
 
@@ -26,7 +26,7 @@ def main():
     start_year = project["start_year"]
     end_year = project["end_year"]
 
-    output_dir = Path(era5["output_dir"])
+    output_dir = Path(era5["raw_data"])
     output_dir.mkdir(parents=True, exist_ok=True)
 
     dataset = era5["dataset"]
@@ -48,15 +48,15 @@ def main():
     for year in range(start_year, end_year + 1):
         for month in range(1, 13):
 
-            outfile = output_dir / f"ERA5Land_{year}_{month:02d}.nc"
+            outfile = output_dir/f"ERA5Land_{year}_{month:02d}.nc"
 
             if outfile.exists():
                 print(f"[Skip] {outfile.name}")
                 continue
 
-            print("=" * 60)
+            print("=" * 50)
             print(f"Downloading {year}-{month:02d}")
-            print("=" * 60)
+            print("=" * 50)
 
             try:
                 client.retrieve(

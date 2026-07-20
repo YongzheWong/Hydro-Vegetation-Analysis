@@ -13,11 +13,9 @@ project:
 # ------------------------
 
 paths:
-  raw_data: "./data/raw"
-  processed_data: "./data/processed"
   output: "./output"
   figures: "./figures"
-  boundary: "./data/boundary/china.shp"
+  boundary: "./data/boundary/gadm41_CHN_0.shp"
 
 # ------------------------
 # Preprocessing
@@ -69,7 +67,8 @@ parallel:
 
 era5land:
   dataset: "reanalysis-era5-land"
-  output_dir: "./data/raw/ERA5Land"
+  raw_data: "./data/raw/ERA5Land"
+  processed_data: "./data/processed/ERA5Land"
   area:
     north: 54
     west: 73
