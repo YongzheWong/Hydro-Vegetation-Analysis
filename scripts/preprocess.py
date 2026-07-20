@@ -9,6 +9,9 @@ from pathlib import Path
 
 import numpy as np
 import xarray as xr
+import geopandas as gpd
+import rioxarray
+from rasterio.enums import Resampling
 
 import sys
 sys.path.append(str(Path(__file__).resolve().parent.parent))
@@ -91,6 +94,67 @@ def convert_units(ds):
     return ds
 
 
+def clip_to_boundary(ds, boundary):
+    print("Clipping China boundary...")
+
+    ds = ds.rio.write_crs("EPSG:4326")
+
+    boundary = boundary.to_crs("EPSG:4326")
+
+    ds = ds.rio.clip(
+        boundary.geometry,
+        boundary.crs,
+        drop=True
+    )
+
+    return ds
+
+
+def reproject_to_albers(ds, target_crs):
+    print("Reprojecting to Albers...")
+
+    ds = ds.rio.write_crs("EPSG:4326")
+
+    ds = ds.rio.reproject(target_crs)
+
+    return ds
+
+
+RESAMPLING_METHODS = {
+    "nearest": Resampling.nearest,
+    "bilinear": Resampling.bilinear,
+    "average": Resampling.average,
+    "cubic": Resampling.cubic
+}
+
+def resample_to_1km(ds, resolution, continuous_vars, continuous_method, flux_vars, flux_method):
+    print("Spacial resampling...")
+
+    for var in ds.data_vars:
+        if var in continuous_vars:
+            method = continuous_method
+
+        elif var in flux_vars:
+            method = flux_method
+
+        else:
+            method = RESAMPLING_METHODS["bilinear"]
+
+        print(f"{var}: {method.name}")
+
+        ds[var] = (
+            ds[var]
+            .rio
+            .reproject(
+                ds.rio.crs,
+                resolution=resolution,
+                resampling=method
+            )
+        )
+
+    return ds
+
+
 def main():
     config = load_config()
 
@@ -102,6 +166,18 @@ def main():
         exist_ok=True
     )
 
+    boundary = gpd.read_file(config["paths"]["boundary"])
+
+    target_crs = config["projection"]["crs"]
+
+    resolution = config["preprocess"]["target_resolution"]
+
+    resampling_config = config["preprocess"]["resampling"]
+    continuous_vars = (resampling_config["continuous"]["variables"])
+    continuous_method = RESAMPLING_METHODS[resampling_config["continuous"]["method"]]
+    flux_vars = (resampling_config["flux"]["variables"])
+    flux_method = RESAMPLING_METHODS[resampling_config["flux"]["method"]]
+    
     for nc_file in sorted(raw_dir.glob("*.nc")):
         print("=" * 50)
         print(f"Processing {nc_file.name}")
@@ -111,6 +187,12 @@ def main():
         ds = quality_control(ds)
         ds = remove_outliers(ds)
         ds = convert_units(ds)
+        ds = clip_to_boundary(ds, boundary)
+        ds = reproject_to_albers(ds, target_crs)
+
+        ds = ds.chunk({"valid_time":24})
+
+        ds = resample_to_1km(ds, resolution, continuous_vars, continuous_method, flux_vars, flux_method)
 
         output_file = (processed_dir/f"{nc_file.stem}_processed.nc")
 

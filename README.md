@@ -18,32 +18,23 @@
 
 ```text
 Hydro-Vegetation-Analysis/
-│
-├── config.yaml               # 项目配置文件
-├── environment.yml           # Conda 环境
-├── README.md
 ├── LICENSE
-│
+├── README.md
+├── boundary/
+│   └── gadm41_CHN_0.shp
+├── config.yaml
 ├── data/
-│   ├── raw/                  # 原始数据
-│   │   └── ERA5Land/
-│   ├── processed/            # 预处理后的数据
-│   │   └── ERA5Land/
-│   └── boundary/             # 中国边界数据
-│
-├── figures/                  # 图片输出
-├── outputs/                  # 分析结果
-│
+│   ├── processed/
+│   │   └── ERA5Land/
+│   └── raw/
+│       └── ERA5Land/
+├── environment.yml
+├── figures/
+├── outputs/
 ├── scripts/
-│   ├── era5-land_download.py # ERA5-Land 下载
-│   ├── preprocess.py         # 数据预处理
-│   ├── boundary_clip.py      # 中国边界裁切
-│   ├── trend_analysis.py     # 趋势分析
-│   └── spatial_analysis.py   # 空间统计分析
-│
-├── .gitignore                # 避免提交到git
-│
-└── utils.py                  # 工具函数
+│   ├── era5-land_download.py
+│   └── preprocess.py
+└── utils.py
 ```
 
 ---
@@ -69,7 +60,7 @@ conda activate data-analysis
 ## 下载 ERA5-Land 数据
 
 ### ERA5-Land 数据下载配置（Windows）
-本项目使用 `cdsapi` 调用 **Copernicus Climate Data Store (CDS)** API自动下载ERA5-Land 再分析数据。
+本项目使用 `cdsapi` 调用 **Copernicus Climate Data Store (CDS)** API 自动下载 ERA5-Land 再分析数据。
 
 在运行下载脚本之前，需要完成 CDS API 认证配置。
 
@@ -78,15 +69,13 @@ conda activate data-analysis
 ### 1. 注册 Copernicus CDS 账号
 
 访问：
-
 https://cds.climate.copernicus.eu/
-
 注册账号并登录。
 
 登录后进入：
 
 ```
-User profile → API key
+My profile → API key
 ```
 
 获取个人 API 信息。
