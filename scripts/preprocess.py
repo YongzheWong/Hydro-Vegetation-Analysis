@@ -179,9 +179,17 @@ def main():
     flux_method = RESAMPLING_METHODS[resampling_config["flux"]["method"]]
     
     for nc_file in sorted(f for f in raw_dir.glob("*.nc") if not f.name.startswith("._")):
+
+        output_file = (processed_dir/f"{nc_file.stem}_processed.nc")
+
+        if output_file.exists():
+            print(f"[Skip] {output_file.name}")
+            continue
+
         print("=" * 50)
         print(f"Processing {nc_file.name}")
-
+        print("=" * 50)
+        
         ds = xr.open_dataset(nc_file, engine="netcdf4")
 
         ds = quality_control(ds)
@@ -197,17 +205,15 @@ def main():
 
         ds = resample_to_1km(ds, resolution, continuous_vars, continuous_method, flux_vars, flux_method)
 
-        output_file = (processed_dir/f"{nc_file.stem}_processed.nc")
-
-        print(f"Saving to {output_file}")
+        print(f"[Saving] {output_file}")
 
         ds.to_netcdf(output_file)
 
-        print("Finished:", output_file.name)
+        print(f"[Done] {output_file.name}")
 
         ds.close()
 
-    print("All preprocessing finished!")
+    print("All preprocessing finished.")
 
 if __name__ == "__main__":
     main()
