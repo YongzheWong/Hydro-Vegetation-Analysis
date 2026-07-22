@@ -29,13 +29,13 @@ preprocess:
       method: bilinear
       variables:
         - t2m
-        - e
-        - ET
         - swvl1
     
     flux:
       method: average
       variables:
+        - e
+        - ET
         - sro
         - tp
   clip_to_boundary: true
