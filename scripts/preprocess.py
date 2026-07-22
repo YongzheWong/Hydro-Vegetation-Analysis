@@ -178,11 +178,11 @@ def main():
     flux_vars = (resampling_config["flux"]["variables"])
     flux_method = RESAMPLING_METHODS[resampling_config["flux"]["method"]]
     
-    for nc_file in sorted(raw_dir.glob("*.nc")):
+    for nc_file in sorted(f for f in raw_dir.glob("*.nc") if not f.name.startswith("._")):
         print("=" * 50)
         print(f"Processing {nc_file.name}")
 
-        ds = xr.open_dataset(nc_file)
+        ds = xr.open_dataset(nc_file, engine="netcdf4")
 
         ds = quality_control(ds)
         ds = remove_outliers(ds)
@@ -190,7 +190,10 @@ def main():
         ds = clip_to_boundary(ds, boundary)
         ds = reproject_to_albers(ds, target_crs)
 
-        ds = ds.chunk({"valid_time":24})
+        if "valid_time" in ds.dims:
+            ds = ds.chunk({"valid_time": 24})
+        elif "time" in ds.dims:
+            ds = ds.chunk({"time": 24})
 
         ds = resample_to_1km(ds, resolution, continuous_vars, continuous_method, flux_vars, flux_method)
 
