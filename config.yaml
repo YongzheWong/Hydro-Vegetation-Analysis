@@ -13,7 +13,7 @@ project:
 # ------------------------
 
 paths:
-  output: "./output"
+  output: "./outputs"
   figures: "./figures"
   boundary: "./boundary/gadm41_CHN_0.shp"
 
@@ -24,20 +24,6 @@ paths:
 preprocess:
   nodata: -9999
   target_resolution: 1000        # meters
-  resampling: 
-    continuous:
-      method: bilinear
-      variables:
-        - t2m
-        - swvl1
-    
-    flux:
-      method: average
-      variables:
-        - e
-        - ET
-        - sro
-        - tp
   clip_to_boundary: true
   remove_outliers: true
 
@@ -118,3 +104,19 @@ era5land:
     - "21:00"
     - "22:00"
     - "23:00"
+
+# ------------------------
+# GLASS LAI
+# ------------------------
+
+glass_lai:
+  raw_data: "/Volumes/PortableSSD/data/raw/GLASS_LAI"
+  processed_data: "/Volumes/PortableSSD/data/processed/GLASS_LAI"
+
+  valid_min: 0
+  valid_max: 100
+  fill_value: 255
+  scale_factor: 0.1
+
+  input_resolution: 0.1
+  target_resolution: 1000

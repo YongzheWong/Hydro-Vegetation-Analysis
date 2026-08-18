@@ -1,4 +1,4 @@
-name: data-analysis
+name: data_analysis
 channels:
   - conda-forge
 
@@ -12,6 +12,7 @@ dependencies:
 
   - xarray
   - netcdf4
+  - h5netcdf
   - h5py
 
   - rasterio
@@ -21,6 +22,7 @@ dependencies:
   - pyproj
   - fiona
   - cartopy
+  - pyhdf
 
   - scikit-learn
 
