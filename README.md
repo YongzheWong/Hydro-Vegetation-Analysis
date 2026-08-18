@@ -17,23 +17,25 @@
 ## 项目结构
 
 ```text
-Hydro-Vegetation-Analysis/
-├── LICENSE
-├── README.md
-├── boundary/
-│   └── gadm41_CHN_0.shp
+Hydro-Vegetation-Analysis
+├── boundary
+│   ├── gadm41_CHN_0.cpg
+│   ├── gadm41_CHN_0.dbf
+│   ├── gadm41_CHN_0.prj
+│   ├── gadm41_CHN_0.shp
+│   └── gadm41_CHN_0.shx
 ├── config.yaml
-├── data/
-│   ├── processed/
-│   │   └── ERA5Land/
-│   └── raw/
-│       └── ERA5Land/
 ├── environment.yml
-├── figures/
-├── outputs/
-├── scripts/
-│   ├── era5-land_download.py
-│   └── preprocess.py
+├── figures
+├── LICENSE
+├── outputs
+├── README.md
+├── scripts
+│   ├── era5-land_download.py
+│   ├── era5-land_preprocess_monthly-aggregation.py
+│   ├── glass-lai_preprocess_monthly.py
+│   ├── inspect_nc.py
+│   └── plot_nc.py
 └── utils.py
 ```
 
@@ -50,7 +52,7 @@ conda env create -f environment.yml
 激活环境：
 
 ```bash
-conda activate data-analysis
+conda activate data_analysis
 ```
 
 如果环境已经存在，则直接激活即可。
@@ -361,7 +363,7 @@ data/raw/ERA5Land/
 建议按照下面顺序完成数据处理：
 
 1. 下载 ERA5-Land 数据。
-2. 对数据进行预处理。
+2. 对 ERA5-Land 和 GLASS LAI 数据进行预处理。
 3. 进行趋势分析。
 4. 进行空间统计分析。
 5. 绘制结果图。
